@@ -1,0 +1,51 @@
+def play_save_clad
+pole = Array.new(10) { Array.new(10, "*") }
+def print_pole(pole)
+pole.each do |x|
+puts x.map { |p| p }.join(" ")
+end
+
+end
+puts "Где-то здесь на поле спрятан клад... Нам с тобой нужно его найти!\n Выбирай координаты и приступай к раскопкам,юный археолог!\n Можешь выбрать для себя количество попыток:"
+kolvo_popitok = gets.chomp.to_i
+while kolvo_popitok > 15 do
+puts "Максимальное число попыток - 15. Выберите другое число: "
+kolvo_popitok = gets.chomp.to_i
+end
+print_pole(pole)
+def random_row(pole)
+return rand(10)
+end
+def random_col(pole)
+return rand(10)
+end
+clad_row = random_row(pole)
+clad_col = random_col(pole)
+
+for popitka in 1..kolvo_popitok
+puts "Попытка: #{popitka}"
+puts "Выберите звёздочку по вертикали: "
+nu_row = gets.chomp.to_i
+puts "Выберите звёздочку по горизонтали: "
+nu_col = gets.chomp.to_i
+if popitka == kolvo_popitok
+puts "К сожалению, ты не нашел клад :с \n Он был спрятан в месте с координатами:#{clad_row},#{clad_col}"
+break
+elsif (nu_row == clad_row) && (nu_col == clad_col)
+puts "Поздравляю! Ты нашёл клад! Теперь ты точно удостоен звания почетного археолога."
+break
+else
+if (nu_row < 0) || (nu_row > 10) || (nu_col < 0) || (nu_col > 10)
+puts "Попробуй ввести другие координаты, которые есть на поле, пожалуйста."
+elsif(pole[nu_row][nu_col] == "О")
+puts "Попробуй другое место."
+else
+puts "К сожалению, клад не найден."
+pole[nu_row][nu_col] = "О"
+end
+end
+print_pole(pole)
+end
+end
+play_save_clad
+
